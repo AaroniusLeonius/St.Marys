@@ -10,13 +10,23 @@ import UIKit
 
 let reuseIdentifier = "Cell"
 
-class GradesCollectionViewController: UICollectionViewController {
+class GradesCollectionViewController: UICollectionViewController, SycamoreDelegate {
     
     
     
     var grades = [Grade(className: "Science", grade: "C+", emoji: "😦"), Grade(className: "Math", grade: "B-", emoji: "😀")]
     //[Grade]()
     
+    //MARK: Sycamore Delagate
+    func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
+        //
+    }
+    
+    func tokenReceived() {
+        //
+    }
+    
+    //MARK: Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +38,8 @@ class GradesCollectionViewController: UICollectionViewController {
         self.collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        
     }
 
     /*

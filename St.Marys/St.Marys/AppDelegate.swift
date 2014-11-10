@@ -41,6 +41,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        
+        //print the url to the console for debug purposes
+        println("\(url)")
+        
+        //get all components from the URL
+        let components = NSURLComponents(URL: url, resolvingAgainstBaseURL: true)
+        
+        //fragment is everything in the URL after the hashtag
+        println("\(components?.fragment)")
+        
+        //split the fragment into all of the returned parameters
+        let returnedParameters = components?.fragment?.componentsSeparatedByString("&")
+        
+        //find the access token in the returned URL and pass it back to the application through the notificatin center
+        for keyValuePair in returnedParameters!{
+            let pairComponents = keyValuePair.componentsSeparatedByString("=")
+            let key = pairComponents[0]
+            let value = pairComponents[1]
+            
+            if key == "access_token" {
+                NSNotificationCenter.defaultCenter().postNotificationName("token_received", object: nil, userInfo: [key : value])
+            }
+        }
+        
+        return true
+    }
 }
 
