@@ -12,18 +12,67 @@ let reuseIdentifier = "Cell"
 
 class GradesCollectionViewController: UICollectionViewController, SycamoreDelegate {
     
+    //var grades = [Grade(className: "Science", grade: "C+", emoji: "😦"), Grade(className: "Math", grade: "B-", emoji: "😀")]
+    var grades = [Grade]()
     
+    var studentId = ""
     
-    var grades = [Grade(className: "Science", grade: "C+", emoji: "😦"), Grade(className: "Math", grade: "B-", emoji: "😀")]
-    //[Grade]()
+    var sycInst = Sycamore()
     
     //MARK: Sycamore Delagate
     func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
-        //
+        
+        
+        if dataTitle == "Me"{
+            if let meData = data as? [String:AnyObject]{
+                self.studentId = meData["StudentID"] as String
+                self.sycInst.getGrades("\(self.studentId)")
+            }
+        }
+        else if dataTitle == "Grades"{
+            println("\(data)")
+            self.grades.removeAll(keepCapacity: true)
+            
+            if let gradeData = data as? [[String:AnyObject]]{
+                for grade in gradeData{
+                    println("GRADE : \(grade)")
+                    
+                    let thisEmoji = self.gradeToEmoji( (NSString(string: grade["Number"] as? String ?? "0").integerValue))
+                    let thisGrade = Grade( className: grade["ClassName"] as? String ?? "This name is bad!!", grade: grade["Number"] as? String ?? "0", emoji: thisEmoji )
+                    self.grades.append(thisGrade)
+                    self.collectionView.reloadData()
+                }
+                
+            }
+        }
     }
     
     func tokenReceived() {
         //
+        self.sycInst.getMe()
+        
+    }
+    
+    func gradeToEmoji( numGrade: Int ) -> String{
+        switch numGrade{
+            case 93...100:
+            return "😃"
+            
+            case 83...92:
+            return "😏"
+            
+            case 73...82:
+            return "😑"
+            
+            case 63...72:
+            return "😰"
+            
+            case 0...62:
+            return "😈"
+            
+        default:
+            return "👀"
+        }
     }
     
     //MARK: Initialization
@@ -38,7 +87,14 @@ class GradesCollectionViewController: UICollectionViewController, SycamoreDelega
         self.collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        self.sycInst.delegate = self
         
+        if(!self.sycInst.loggedIn){
+            self.sycInst.request_token()
+        }
+        else{
+            self.tokenReceived()
+        }
         
     }
 

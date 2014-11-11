@@ -126,7 +126,7 @@ class Sycamore : NSObject{
                 else{
                     let returnData:AnyObject?  = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error)
                     
-                    println("\n\nJSon:\(returnData)")
+                    //println("\n\nJSon:\(returnData)")
                     
                     if let requestedItemName = requestURL?.lastPathComponent as String!{
                         self.dataReceived(returnData, dataRequested: requestedItemName)
