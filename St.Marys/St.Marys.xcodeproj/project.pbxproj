@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		167A6FCF1B75A23C00AEABDF /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167A6FCE1B75A23C00AEABDF /* Credentials.swift */; };
 		9305AF1F1A05ADD20001E7EA /* gradeSummaryCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9305AF1E1A05ADD20001E7EA /* gradeSummaryCellCollectionViewCell.swift */; };
 		9305AF211A05AEF20001E7EA /* GradesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9305AF201A05AEF20001E7EA /* GradesCollectionViewController.swift */; };
-		933FB7631A10789300008C72 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933FB7621A10789300008C72 /* Credentials.swift */; };
 		93502BF21A088C1700FB32A0 /* SycamoreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93502BEF1A088C1700FB32A0 /* SycamoreAPI.swift */; };
 		93502BF41A088C1700FB32A0 /* SycamoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93502BF11A088C1700FB32A0 /* SycamoreConstants.swift */; };
 		9356A6241A0ED1AC0079E6FE /* HomeworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9356A6231A0ED1AC0079E6FE /* HomeworkTableViewCell.swift */; };
@@ -37,9 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		167A6FCE1B75A23C00AEABDF /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		9305AF1E1A05ADD20001E7EA /* gradeSummaryCellCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gradeSummaryCellCollectionViewCell.swift; path = ../gradeSummaryCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		9305AF201A05AEF20001E7EA /* GradesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradesCollectionViewController.swift; sourceTree = "<group>"; };
-		933FB7621A10789300008C72 /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		93502BEF1A088C1700FB32A0 /* SycamoreAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SycamoreAPI.swift; sourceTree = "<group>"; };
 		93502BF11A088C1700FB32A0 /* SycamoreConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SycamoreConstants.swift; sourceTree = "<group>"; };
 		9356A6231A0ED1AC0079E6FE /* HomeworkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeworkTableViewCell.swift; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				93502BEF1A088C1700FB32A0 /* SycamoreAPI.swift */,
-				933FB7621A10789300008C72 /* Credentials.swift */,
+				167A6FCE1B75A23C00AEABDF /* Credentials.swift */,
 				93502BF11A088C1700FB32A0 /* SycamoreConstants.swift */,
 			);
 			name = sycamore;
@@ -125,9 +125,9 @@
 				937EBFDC1A05A445009BCB53 /* Main.storyboard */,
 				9356A6251A0ED2A30079E6FE /* HomeworkTableViewController.swift */,
 				9356A6231A0ED1AC0079E6FE /* HomeworkTableViewCell.swift */,
+				9305AF201A05AEF20001E7EA /* GradesCollectionViewController.swift */,
 				9356A6211A0ECC2C0079E6FE /* sycamore */,
 				9356A6221A0ECC6D0079E6FE /* pictures */,
-				9305AF201A05AEF20001E7EA /* GradesCollectionViewController.swift */,
 				9356A6271A0ED2F90079E6FE /* Structs.swift */,
 				937EBFDF1A05A445009BCB53 /* Images.xcassets */,
 				937EBFE11A05A445009BCB53 /* LaunchScreen.xib */,
@@ -269,7 +269,7 @@
 				9356A6281A0ED2F90079E6FE /* Structs.swift in Sources */,
 				93502BF41A088C1700FB32A0 /* SycamoreConstants.swift in Sources */,
 				9305AF211A05AEF20001E7EA /* GradesCollectionViewController.swift in Sources */,
-				933FB7631A10789300008C72 /* Credentials.swift in Sources */,
+				167A6FCF1B75A23C00AEABDF /* Credentials.swift in Sources */,
 				93502BF21A088C1700FB32A0 /* SycamoreAPI.swift in Sources */,
 				9356A6241A0ED1AC0079E6FE /* HomeworkTableViewCell.swift in Sources */,
 				9356A6261A0ED2A30079E6FE /* HomeworkTableViewController.swift in Sources */,
@@ -398,7 +398,7 @@
 		937EBFF31A05A445009BCB53 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = St.Marys/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -409,7 +409,7 @@
 		937EBFF41A05A445009BCB53 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = St.Marys/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

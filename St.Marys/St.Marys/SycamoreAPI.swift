@@ -9,6 +9,7 @@
 //import Foundation
 import UIKit
 import Foundation
+import WebKit
 
 //MARK: SycamoreDelegate protocol definition
 protocol SycamoreDelegate{
@@ -28,6 +29,7 @@ class Sycamore : NSObject{
         }
     }
 
+
     //MARK: login/logout methods
     func request_token(){
         ///Request Token
@@ -39,8 +41,7 @@ class Sycamore : NSObject{
         
         
         //request a token from the website
-        let authenticateURL = NSURL(string:(AUTH_URL + "?response_type=token&client_id=\(CLIENT_ID)&scope=open general individual&redirect_uri=\(REDIRECT_URI)").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-        
+//        let authenticateURL = NSURL(string:(AUTH_URL + "?response_type=token&client_id=\(CLIENT_ID)&scope=open general individual&redirect_uri=\(REDIRECT_URI)").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
         UIApplication.sharedApplication().openURL(authenticateURL!)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receive_token:", name: "token_received", object: nil)
@@ -86,9 +87,11 @@ class Sycamore : NSObject{
         default:
             self.getRequest("Student/\(studentID)/Grades?quarter=\(quarter)")
         }
+        
 
     
     }
+    
     func getMe(){
         self.getRequest("Me")
     }
@@ -114,7 +117,7 @@ class Sycamore : NSObject{
             
             let session = NSURLSession.sharedSession()
             
-            session.dataTaskWithRequest(request, {(data, response, error) in
+            session.dataTaskWithRequest(request, completionHandler: {(data, response, error) in
                 var error: NSError?
 
                 
@@ -157,7 +160,7 @@ class Sycamore : NSObject{
     func pullAuthenticationTokenFromUserDefaults() -> String?{
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        self.authentication_token = defaults.objectForKey("authentication_token") as String? ?? nil
+        self.authentication_token = defaults.objectForKey("authentication_token") as! String? ?? nil
         return self.authentication_token
     }
     func putAuthenticationTokenIntoUserDefaults(token: String?){
@@ -179,5 +182,14 @@ class Sycamore : NSObject{
     deinit{
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+    func getHomework(studentID: String, quarter: Int = 0){
+        switch quarter{
+        case 0:
+            self.getRequest("Student/\(studentID)/Homework")
+        default:
+            self.getRequest("Student/\(studentID)/Homework?quarter=\(quarter)")
+        }
+    }
+
 
 }

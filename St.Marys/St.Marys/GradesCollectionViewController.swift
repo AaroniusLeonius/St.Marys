@@ -25,7 +25,7 @@ class GradesCollectionViewController: UICollectionViewController, SycamoreDelega
         
         if dataTitle == "Me"{
             if let meData = data as? [String:AnyObject]{
-                self.studentId = meData["StudentID"] as String
+                self.studentId = meData["StudentID"] as! String
                 self.sycInst.getGrades("\(self.studentId)")
             }
         }
@@ -40,7 +40,7 @@ class GradesCollectionViewController: UICollectionViewController, SycamoreDelega
                     let thisEmoji = self.gradeToEmoji( (NSString(string: grade["Number"] as? String ?? "0").integerValue))
                     let thisGrade = Grade( className: grade["ClassName"] as? String ?? "This name is bad!!", grade: grade["Number"] as? String ?? "0", emoji: thisEmoji )
                     self.grades.append(thisGrade)
-                    self.collectionView.reloadData()
+                    self.collectionView!.reloadData()
                 }
                 
             }
@@ -84,13 +84,20 @@ class GradesCollectionViewController: UICollectionViewController, SycamoreDelega
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
         self.sycInst.delegate = self
         
         if(!self.sycInst.loggedIn){
             self.sycInst.request_token()
+//            var webView = UIWebView()
+//            webView.frame = view.bounds
+//            webView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+//            webView.scalesPageToFit = true
+//            view.addSubview(webView)
+//            let req = NSURLRequest(URL: authenticateURL!)
+//            webView.loadRequest(req)            
         }
         else{
             self.tokenReceived()
@@ -120,7 +127,7 @@ class GradesCollectionViewController: UICollectionViewController, SycamoreDelega
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("GradeCell", forIndexPath: indexPath) as gradeSummaryCellCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("GradeCell", forIndexPath: indexPath) as! gradeSummaryCellCollectionViewCell
         
         cell.classLabel.text = grades[indexPath.row].className
         

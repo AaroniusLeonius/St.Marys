@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>RosenRosen.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>RosenRosen.St-Marys</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -27,7 +27,7 @@
 			<string>RosenRosen.St-Marys</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>huskies</string>
+				<string>stmarys</string>
 			</array>
 		</dict>
 	</array>

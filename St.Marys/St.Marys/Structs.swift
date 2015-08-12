@@ -17,5 +17,5 @@ struct Grade{
 struct Homework{
     var subject:String
     var assignment:String
-    var due:String
+    var due:AnyObject
 }

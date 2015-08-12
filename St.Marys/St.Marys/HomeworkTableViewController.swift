@@ -8,10 +8,48 @@
 
 import UIKit
 
-class HomeworkTableViewController: UITableViewController {
+class HomeworkTableViewController: UITableViewController, SycamoreDelegate {
     
     
-    var homeworkAssignments = [Homework(subject: "Math", assignment: "p.42, 1-25 all", due: "Dec 25 2014")]
+    var homeworkAssignments = [Homework]()
+    
+    var studentId = ""
+    
+    var sycInst = Sycamore()
+    
+    //MARK: Sycamore Delagate
+    func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
+        
+        
+        if dataTitle == "Me"{
+            if let meData = data as? [String:AnyObject]{
+                self.studentId = meData["StudentID"] as! String
+                self.sycInst.getHomework("\(self.studentId)")
+            }
+        }
+        else if dataTitle == "Homework"{
+            println("\(data)")
+            self.homeworkAssignments.removeAll(keepCapacity: true)
+            
+            if let homeworkData = data as? [[String:AnyObject]]{
+                for homework in homeworkData{
+                    println("HOMEWORK : \(homework)")
+                    
+                    let thisHomework = Homework( subject: homework["Subject"] as? String ?? "subject", assignment: homework["Assignment"] as? String ?? "0", due: homework["Due"]! )
+                    self.homeworkAssignments.append(thisHomework)
+                    self.tableView!.reloadData()
+                }
+                
+            }
+        }
+    }
+    
+    func tokenReceived() {
+        //
+        self.sycInst.getMe()
+        
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +81,12 @@ class HomeworkTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HW", forIndexPath: indexPath) as HomeworkTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("HW", forIndexPath: indexPath) as! HomeworkTableViewCell
 
         // Configure the cell...
         cell.Subject.text = homeworkAssignments[indexPath.row].subject
         cell.Assignment.text = homeworkAssignments[indexPath.row].assignment
-        cell.Due.text = homeworkAssignments[indexPath.row].due
+        cell.Due.text = homeworkAssignments[indexPath.row].due as? String
 
         return cell
     }
