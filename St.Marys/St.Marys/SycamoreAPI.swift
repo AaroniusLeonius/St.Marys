@@ -42,8 +42,8 @@ class Sycamore : NSObject{
         
         //request a token from the website
 //        let authenticateURL = NSURL(string:(AUTH_URL + "?response_type=token&client_id=\(CLIENT_ID)&scope=open general individual&redirect_uri=\(REDIRECT_URI)").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-        UIApplication.sharedApplication().openURL(authenticateURL!)
-        
+
+       
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receive_token:", name: "token_received", object: nil)
         
     }
@@ -70,6 +70,8 @@ class Sycamore : NSObject{
             
             //save the token to user defaults for later
             self.putAuthenticationTokenIntoUserDefaults(self.authentication_token)
+            
+            NSNotificationCenter.defaultCenter().removeObserver(self)
             
             self.delegate?.tokenReceived()
         }

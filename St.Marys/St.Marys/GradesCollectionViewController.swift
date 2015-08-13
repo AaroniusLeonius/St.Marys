@@ -19,6 +19,8 @@ class GradesCollectionViewController: UICollectionViewController, SycamoreDelega
     
     var sycInst = Sycamore()
     
+    var loginWebView = UIWebView()
+    
     //MARK: Sycamore Delagate
     func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
         
@@ -50,6 +52,8 @@ class GradesCollectionViewController: UICollectionViewController, SycamoreDelega
     func tokenReceived() {
         //
         self.sycInst.getMe()
+        loginWebView.removeFromSuperview()
+        
         
     }
     
@@ -91,13 +95,14 @@ class GradesCollectionViewController: UICollectionViewController, SycamoreDelega
         
         if(!self.sycInst.loggedIn){
             self.sycInst.request_token()
-//            var webView = UIWebView()
-//            webView.frame = view.bounds
-//            webView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
-//            webView.scalesPageToFit = true
-//            view.addSubview(webView)
-//            let req = NSURLRequest(URL: authenticateURL!)
-//            webView.loadRequest(req)            
+            
+            //bring up webview to log in
+            loginWebView.frame = view.bounds
+            loginWebView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+            loginWebView.scalesPageToFit = true
+            view.addSubview(loginWebView)
+            let req = NSURLRequest(URL: authenticateURL!)
+            loginWebView.loadRequest(req)
         }
         else{
             self.tokenReceived()

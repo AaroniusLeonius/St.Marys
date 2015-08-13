@@ -17,6 +17,8 @@ class HomeworkTableViewController: UITableViewController, SycamoreDelegate {
     
     var sycInst = Sycamore()
     
+    var loginWebView = UIWebView()
+    
     //MARK: Sycamore Delagate
     func sycamoreDataReceived(data: AnyObject?, dataTitle: String) {
         
@@ -27,6 +29,7 @@ class HomeworkTableViewController: UITableViewController, SycamoreDelegate {
                 self.sycInst.getHomework("\(self.studentId)")
             }
         }
+            
         else if dataTitle == "Homework"{
             println("\(data)")
             self.homeworkAssignments.removeAll(keepCapacity: true)
@@ -47,6 +50,7 @@ class HomeworkTableViewController: UITableViewController, SycamoreDelegate {
     func tokenReceived() {
         //
         self.sycInst.getMe()
+        loginWebView.removeFromSuperview()
         
     }
 
@@ -59,6 +63,25 @@ class HomeworkTableViewController: UITableViewController, SycamoreDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        //set the sycamore instance delegate
+        self.sycInst.delegate = self
+        
+        if(!self.sycInst.loggedIn){
+            self.sycInst.request_token()
+            
+            //bring up webview to log in
+            loginWebView.frame = view.bounds
+            loginWebView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+            loginWebView.scalesPageToFit = true
+            view.addSubview(loginWebView)
+            let req = NSURLRequest(URL: authenticateURL!)
+            loginWebView.loadRequest(req)
+        }
+        else{
+            self.tokenReceived()
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
